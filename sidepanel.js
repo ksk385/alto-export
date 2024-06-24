@@ -8,6 +8,19 @@ chrome.storage.local.get("patients", function (result) {
   });
 });
 
+// Listen for messages in the popup
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.type === "EXTRACT_PATIENT") {
+    console.log("Data received in panel:", message.payload);
+    const patient = message.payload;
+    // Do something with the data in your popup's UI
+    const patientList = document.getElementById("patient-list");
+    const patientElement = document.createElement("li");
+    patientElement.textContent = JSON.stringify(patient);
+    patientList.appendChild(patientElement);
+  }
+});
+
 function convertToCsv(patients) {
   const headers = [
     "Last name",
@@ -50,8 +63,8 @@ function exportData() {
   console.log("Exporting data...");
   chrome.storage.local.get("patients", function (result) {
     const patients = result.patients || [];
-    const data = new Blob(convertToCsv(patients), {
-      type: "application/csv",
+    const data = new Blob([convertToCsv(patients)], {
+      type: "application/csv;charset=utf-8",
     });
     const url = URL.createObjectURL(data);
 
