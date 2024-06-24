@@ -21,9 +21,7 @@ chrome.sidePanel
 
 chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
   if (!tab.url) return;
-  console.log("Tab URL: ", tab.url);
   const url = new URL(tab.url);
-  console.log("Url: ", url.origin);
   // Enables the side panel on alto.com
   if (url.origin.includes(ALTO_ORIGIN)) {
     await chrome.sidePanel.setOptions({

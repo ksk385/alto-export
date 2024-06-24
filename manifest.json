@@ -10,6 +10,12 @@
     "default_title": "Click to open panel"
   },
   "permissions": ["sidePanel", "tabs"],
+  "content_scripts": [
+    {
+      "matches": ["https://providers.alto.com/*"],
+      "js": ["content.js"]
+    }
+  ],
   "commands": {
     "_execute_action": {
       "suggested_key": {
