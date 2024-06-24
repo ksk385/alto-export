@@ -37,3 +37,16 @@ chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
     });
   }
 });
+
+// Listen for messages in the background script
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.type === "EXTRACT_PATIENT") {
+    // Store data or handle it
+    // Check if local storage already has some patient data
+    chrome.storage.local.get("patients", function (result) {
+      const patients = result.patients || [];
+      patients.push(message.payload);
+      chrome.storage.local.set({ patients });
+    });
+  }
+});

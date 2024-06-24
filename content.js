@@ -25,7 +25,22 @@ function addExtractButton() {
             button.textContent = "Extract";
             button.style.padding = "5px";
             button.onclick = function () {
-              alert("Button clicked!");
+              let patientData = {};
+              const styledRowData = targetHeader.parentElement
+                .querySelector(
+                  ".card-header ~ .card-body [class^=StyledTableBody]"
+                )
+                .querySelectorAll("[class^=StyledTableRow]");
+              Array.from(styledRowData).forEach((row) => {
+                const cells = row.querySelectorAll("[class^=StyledTableCell]");
+                patientData[cells[0].textContent] = cells[1].textContent;
+              });
+              console.log("Patient data extracted:", patientData);
+              // Example of sending data from a content script
+              chrome.runtime.sendMessage({
+                type: "EXTRACT_PATIENT",
+                payload: patientData,
+              });
             };
 
             targetHeader.appendChild(button);
