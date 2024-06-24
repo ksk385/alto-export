@@ -1,12 +1,11 @@
-chrome.storage.local.get("patients", function (result) {
-  const patients = result.patients || [];
-  const patientList = document.getElementById("patient-list");
-  patients.forEach((patient) => {
-    const patientElement = document.createElement("li");
-    patientElement.textContent = JSON.stringify(patient);
-    patientList.appendChild(patientElement);
-  });
-});
+const rawPatientData = {
+  Address: "72-40 Juno St, Flushing, NY 11375",
+  Allergies: "No Known Allergies",
+  "Date of Birth": "06/26/1989",
+  Gender: "F",
+  Name: "Erica Abraham",
+  Phone: "(914) 589 - 3822",
+};
 
 function convertToCsv(patients) {
   const headers = [
@@ -46,27 +45,4 @@ function convertToCsv(patients) {
   return `${headers.join(",")}\n${rows.join("\n")}`;
 }
 
-function exportData() {
-  console.log("Exporting data...");
-  chrome.storage.local.get("patients", function (result) {
-    const patients = result.patients || [];
-    const data = new Blob(convertToCsv(patients), {
-      type: "application/csv",
-    });
-    const url = URL.createObjectURL(data);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "patients.csv";
-    a.click();
-  });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("export-button")
-    .addEventListener("click", function () {
-      console.log("Button Clicked!");
-      exportData();
-    });
-});
+console.log(convertToCsv([rawPatientData]));

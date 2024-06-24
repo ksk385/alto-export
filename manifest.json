@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Site-specific side panel",
+  "name": "Alto Data Extractor",
   "version": "1.0",
   "description": "Shows how to display the side panel only on google.com using the Side Panel API.",
   "background": {
