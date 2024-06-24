@@ -11,7 +11,7 @@ chrome.storage.local.get("patients", function (result) {
 // Listen for messages in the popup
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.type === "EXTRACT_PATIENT") {
-    console.log("Data received in panel:", message.payload);
+    console.debug("Data received in panel:", message.payload);
     const patient = message.payload;
     // Do something with the data in your popup's UI
     const patientList = document.getElementById("patient-list");
@@ -22,6 +22,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 function convertToCsv(patients) {
+  // Headers for PK Compounding Software
   const headers = [
     "Last name",
     "First name",
@@ -52,15 +53,16 @@ function convertToCsv(patients) {
       patientAddressParts[patientAddressParts.length - 1].split(" ")[1];
     const patientCity =
       patientAddressParts[patientAddressParts.length - 2].trim();
-    const patientPhone = patient.Phone;
+    // Not adding phone numbers for now
+    const patientPhone = "";
 
     return `${patientLastName},${patientFirstName},${patientBirthdate},${patientAddress1},${patientCity},${patientState},${patientZipcode},${patientPhone}`;
   });
-  return `${headers.join(",")}\n${rows.join("\n")}`;
+  return rows.join("\n");
 }
 
 function exportData() {
-  console.log("Exporting data...");
+  console.debug("Exporting data...");
   chrome.storage.local.get("patients", function (result) {
     const patients = result.patients || [];
     const data = new Blob([convertToCsv(patients)], {
@@ -79,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("export-button")
     .addEventListener("click", function () {
-      console.log("Button Clicked!");
+      console.debug("Button Clicked!");
       exportData();
     });
 });

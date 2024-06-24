@@ -10,14 +10,14 @@ function addExtractButton() {
   const callback = (mutationList, observer) => {
     for (const mutation of mutationList) {
       if (mutation.type === "childList" && !foundPatientCard) {
-        console.log("A child node has been added or removed.");
+        console.debug("A child node has been added or removed.");
         const cardHeaders = document.querySelectorAll(".card-header");
         if (cardHeaders.length > 0) {
-          console.log("Card headers found:", cardHeaders);
+          console.debug("Card headers found:", cardHeaders);
           const targetHeader = Array.from(cardHeaders).find((header) =>
             header.textContent.includes("Patient")
           );
-          console.log("Target header found:", targetHeader);
+          console.debug("Target header found:", targetHeader);
 
           if (targetHeader) {
             foundPatientCard = true;
@@ -35,7 +35,7 @@ function addExtractButton() {
                 const cells = row.querySelectorAll("[class^=StyledTableCell]");
                 patientData[cells[0].textContent] = cells[1].textContent;
               });
-              console.log("Patient data extracted:", patientData);
+              console.debug("Patient data extracted:", patientData);
               // Example of sending data from a content script
               chrome.runtime.sendMessage({
                 type: "EXTRACT_PATIENT",
@@ -48,7 +48,7 @@ function addExtractButton() {
             // Stop observing the target node
             observer.disconnect();
           } else {
-            console.log(
+            console.debug(
               'No card-header with text "Patient" found on this page.'
             );
           }
@@ -66,9 +66,9 @@ function addExtractButton() {
 
 window.navigation.addEventListener("navigate", (event) => {
   const url = event.destination.url;
-  console.log("location changed!");
+  console.debug("location changed!");
   if (url.match("central-fill/[0-9]+")) {
-    console.log("Patient page found!");
+    console.debug("Patient page found!");
     addExtractButton();
   }
 });
