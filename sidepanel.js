@@ -1,10 +1,23 @@
+function displayPatientData(patient, patientList) {
+  const patientElement = document.createElement("div");
+  Object.keys(patient).forEach((key) => {
+    const keyElement = document.createElement("span");
+    keyElement.classList.add("field-name");
+    keyElement.textContent = `${key}`;
+    patientElement.appendChild(keyElement);
+    const valueElement = document.createElement("span");
+    valueElement.classList.add("field-value");
+    valueElement.textContent = `${patient[key]}`;
+    patientElement.appendChild(valueElement);
+  });
+  patientList.appendChild(patientElement);
+}
+
 chrome.storage.local.get("patients", function (result) {
   const patients = result.patients || [];
   const patientList = document.getElementById("patient-list");
   patients.forEach((patient) => {
-    const patientElement = document.createElement("li");
-    patientElement.textContent = JSON.stringify(patient);
-    patientList.appendChild(patientElement);
+    displayPatientData(patient, patientList);
   });
 });
 
@@ -15,9 +28,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     const patient = message.payload;
     // Do something with the data in your popup's UI
     const patientList = document.getElementById("patient-list");
-    const patientElement = document.createElement("li");
-    patientElement.textContent = JSON.stringify(patient);
-    patientList.appendChild(patientElement);
+    displayPatientData(patient, patientList);
   }
 });
 
