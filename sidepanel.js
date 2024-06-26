@@ -89,11 +89,26 @@ function exportData() {
   });
 }
 
+function clearData() {
+  console.debug("Clearing data...");
+  chrome.storage.local.set({ patients: [] }, function () {
+    const patientList = document.getElementById("patient-list");
+    patientList.innerHTML = "";
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("export-button")
     .addEventListener("click", function () {
-      console.debug("Button Clicked!");
+      console.debug("Download Clicked!");
       exportData();
+    });
+
+  document
+    .getElementById("clear-button")
+    .addEventListener("click", function () {
+      console.debug("Clear Clicked!");
+      clearData();
     });
 });

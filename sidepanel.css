@@ -114,16 +114,17 @@ body {
   justify-self: end;
 }
 
-.container button#export-button {
+button {
   padding: 5px;
   background-color: var(--color-bg);
   border: 1px solid var(--color-fg);
   color: var(--color-fg);
   border-radius: 20px;
   font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
-.container button#export-button:hover {
+button:hover {
   background-color: var(--color-fg);
   color: var(--color-bg);
 }
