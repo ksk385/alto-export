@@ -23,7 +23,13 @@ function addExtractButton() {
             foundPatientCard = true;
             const button = document.createElement("button");
             button.textContent = "Extract";
-            button.style.padding = "5px";
+            button.style.border = "1px solid";
+            button.style.backgroundColor = "white";
+            button.style.color = "#0a4a73";
+            button.style.borderRadius = "20px";
+            button.style.cursor = "pointer";
+            button.style.padding = "5px 10px";
+
             button.onclick = function () {
               let patientData = {};
               const styledRowData = targetHeader.parentElement

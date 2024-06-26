@@ -93,8 +93,25 @@ body {
   margin-bottom: 1rem;
 }
 
-.container#patient-list {
+#patient-list {
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: 70vh;
+}
+
+.patient-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 1rem;
+  grid-auto-rows: auto;
+  margin-bottom: 1.5rem;
+  border: 1px solid;
+}
+
+.field-name {
+  justify-self: end;
 }
 
 .container button#export-button {
@@ -104,4 +121,9 @@ body {
   color: var(--color-fg);
   border-radius: 20px;
   font-weight: bold;
+}
+
+.container button#export-button:hover {
+  background-color: var(--color-fg);
+  color: var(--color-bg);
 }

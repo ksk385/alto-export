@@ -1,11 +1,12 @@
 function displayPatientData(patient, patientList) {
   const patientElement = document.createElement("div");
+  patientElement.classList.add("patient-card");
   Object.keys(patient).forEach((key) => {
-    const keyElement = document.createElement("span");
+    const keyElement = document.createElement("div");
     keyElement.classList.add("field-name");
     keyElement.textContent = `${key}`;
     patientElement.appendChild(keyElement);
-    const valueElement = document.createElement("span");
+    const valueElement = document.createElement("div");
     valueElement.classList.add("field-value");
     valueElement.textContent = `${patient[key]}`;
     patientElement.appendChild(valueElement);
