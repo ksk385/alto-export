@@ -2,6 +2,10 @@
 
 Alto-Export is a browser extension designed to streamline the process of extracting patient data from Alto Pharmacy for Providers so they can import it into their Compounding Software like `PK Compounding Software`.
 
+## Screenshot
+
+![alto-extract-screenshot.jpg](alto-extract-screenshot.jpg)
+
 ## Installing this extension
 
 1. Download the code using the `Download ZIP` option on Github. Extract all the files on your local computer.
